@@ -29,8 +29,7 @@ function getTasks() {
 function getTasksByProject(projectId) {
     return db
         .select(
-            "projects.project_name",
-            "projects.project_description",
+            "tasks.id",
             "tasks.task_name",
             "tasks.task_notes",
             "tasks.task_completed"
