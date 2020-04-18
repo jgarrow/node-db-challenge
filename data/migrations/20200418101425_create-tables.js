@@ -2,15 +2,15 @@ exports.up = function (knex) {
     return knex.schema
         .createTable("projects", (tbl) => {
             tbl.increments();
-            tbl.string("name", 16).notNullable();
-            tbl.string("description", 128);
-            tbl.boolean("completed").defaultTo(false);
+            tbl.string("project_name", 16).notNullable();
+            tbl.string("project_description", 128);
+            tbl.boolean("project_completed").notNullable().defaultTo(false);
         })
         .createTable("tasks", (tbl) => {
             tbl.increments();
-            tbl.string("name", 16).notNullable();
-            tbl.string("notes", 128);
-            tbl.boolean("completed").defaultTo(false);
+            tbl.string("task_name", 16).notNullable();
+            tbl.string("task_notes", 128);
+            tbl.boolean("task_completed").notNullable().defaultTo(false);
             tbl.integer("project_id")
                 .unsigned()
                 .notNullable()
@@ -21,8 +21,8 @@ exports.up = function (knex) {
         })
         .createTable("resources", (tbl) => {
             tbl.increments();
-            tbl.string("name", 16).notNullable();
-            tbl.string("description", 128);
+            tbl.string("resource_name", 16).unique().notNullable();
+            tbl.string("resource_description", 128);
         })
         .createTable("project_resources", (tbl) => {
             tbl.integer("project_id")

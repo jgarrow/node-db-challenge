@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const projectRoutes = require("./routes/projectRoutes");
+const projectRoutes = require("./api/routes/projectRoutes");
 
 const server = express();
 const baseUrl = "/api";
