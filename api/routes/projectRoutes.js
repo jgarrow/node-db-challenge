@@ -43,4 +43,29 @@ router.post("/", (req, res) => {
         );
 });
 
+router.put("/:id", (req, res) => {
+    const projectId = req.params.id;
+    const updatedProject = req.body;
+
+    ProjectSchemes.updateProject(projectId, updatedProject)
+        .then((response) => res.status(200).json(response))
+        .catch((err) =>
+            res
+                .status(500)
+                .json({ message: `Error updating project ${projectId}` })
+        );
+});
+
+router.delete("/:id", (req, res) => {
+    const projectId = req.params.id;
+
+    ProjectSchemes.removeProject(projectId)
+        .then((response) => res.status(200).json(response))
+        .catch((err) =>
+            res
+                .status(500)
+                .json({ message: `Error deleting project ${projectId}` })
+        );
+});
+
 module.exports = router;

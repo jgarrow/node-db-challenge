@@ -55,8 +55,16 @@ function addResource(resource) {
     return db("resources").insert(resource);
 }
 
+function removeProject(projectId) {
+    return db("projects").where({ id: projectId }).del();
+}
+
 function removeTask(taskId) {
     return db("tasks").where({ id: taskId }).del();
+}
+
+function updateProject(projectId, project) {
+    return db("projects").where({ id: projectId }).update(project);
 }
 
 function updateTask(taskId, task) {
@@ -73,6 +81,8 @@ module.exports = {
     addProject,
     addTasksToProject,
     addResource,
+    removeProject,
     removeTask,
+    updateProject,
     updateTask,
 };
