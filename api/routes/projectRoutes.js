@@ -20,6 +20,16 @@ router.get("/projects/:id", (req, res) => {
         );
 });
 
+router.post("/projects", (req, res) => {
+    const project = req.body;
+
+    ProjectSchemes.addProject(project)
+        .then((response) => res.status(201).json({ response }))
+        .catch((err) =>
+            res.status(500).json({ message: "Error creating project" })
+        );
+});
+
 router.get("/resources", (req, res) => {
     ProjectSchemes.getResources()
         .then((resources) => res.status(200).json(resources))
@@ -45,6 +55,30 @@ router.get("/projects/:id/tasks", (req, res) => {
         .catch((err) =>
             res.status(500).json({
                 message: `Error fetching tasks for project ${projectId}`,
+            })
+        );
+});
+
+router.post("/projects/:id/tasks", (req, res) => {
+    const task = req.body;
+
+    ProjectSchemes.addTasksToProject(task)
+        .then((response) => res.status(201).json({ response }))
+        .catch((err) =>
+            res.status(500).json({
+                message: `Error creating tasks for project ${projectId}`,
+            })
+        );
+});
+
+router.post("/resources", (req, res) => {
+    const resource = req.body;
+
+    ProjectSchemes.addResource(resource)
+        .then((response) => res.status(201).json({ response }))
+        .catch((err) =>
+            res.status(500).json({
+                message: `Error creating resource`,
             })
         );
 });

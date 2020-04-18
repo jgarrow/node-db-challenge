@@ -40,10 +40,25 @@ function getTasksByProject(projectId) {
         .innerJoin("projects", "projects.id", "tasks.project_id");
 }
 
+function addProject(project) {
+    return db("projects").insert(project);
+}
+
+function addTasksToProject(task) {
+    return db("tasks").insert(task);
+}
+
+function addResource(resource) {
+    return db("resources").insert(resource);
+}
+
 module.exports = {
     getProjects,
     getProject,
     getResources,
     getTasksByProject,
     getTasks,
+    addProject,
+    addTasksToProject,
+    addResource,
 };
