@@ -12,6 +12,10 @@ function getResources() {
     return db("resources");
 }
 
+function getResourceById(resourceId) {
+    return db("resources").where({ id: resourceId });
+}
+
 function getTasks() {
     return db
         .select(
@@ -63,6 +67,10 @@ function removeTask(taskId) {
     return db("tasks").where({ id: taskId }).del();
 }
 
+function removeResource(resourceId) {
+    return db("resources").where({ id: resourceId }).del();
+}
+
 function updateProject(projectId, project) {
     return db("projects").where({ id: projectId }).update(project);
 }
@@ -71,10 +79,15 @@ function updateTask(taskId, task) {
     return db("tasks").where({ id: taskId }).update(task);
 }
 
+function updateResource(resourceId, resource) {
+    return db("resources").where({ id: resourceId }).update(resource);
+}
+
 module.exports = {
     getProjects,
     getProject,
     getResources,
+    getResourceById,
     getTasksByProject,
     getTasks,
     getTaskById,
@@ -83,6 +96,8 @@ module.exports = {
     addResource,
     removeProject,
     removeTask,
+    removeResource,
     updateProject,
     updateTask,
+    updateResource,
 };
