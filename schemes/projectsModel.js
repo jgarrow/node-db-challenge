@@ -47,6 +47,23 @@ function getTasksByProject(projectId) {
         .innerJoin("projects", "projects.id", "tasks.project_id");
 }
 
+function getResourcesByProject(projectId) {
+    return db
+        .select(
+            "resources.id",
+            "resources.resource_name",
+            "resources.resource_description"
+        )
+        .from("project_resources")
+        .where({ project_id: projectId })
+        .innerJoin("projects", "projects.id", "project_resources.project_id")
+        .innerJoin(
+            "resources",
+            "resources.id",
+            "project_resources.resource_id"
+        );
+}
+
 function addProject(project) {
     return db("projects").insert(project);
 }
@@ -89,6 +106,7 @@ module.exports = {
     getResources,
     getResourceById,
     getTasksByProject,
+    getResourcesByProject,
     getTasks,
     getTaskById,
     addProject,

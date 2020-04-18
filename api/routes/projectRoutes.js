@@ -19,7 +19,19 @@ router.get("/:id", (req, res) => {
         .then((project) => {
             ProjectSchemes.getTasksByProject(id)
                 .then((tasks) => {
-                    res.status(200).json({ ...project[0], tasks });
+                    ProjectSchemes.getResourcesByProject(id)
+                        .then((resources) =>
+                            res
+                                .status(200)
+                                .json({ ...project[0], tasks, resources })
+                        )
+                        .catch((err) =>
+                            res
+                                .status(500)
+                                .json({
+                                    message: `Error fetching resources for project ${id}`,
+                                })
+                        );
                 })
                 .catch((err) =>
                     res.status(500).json({
