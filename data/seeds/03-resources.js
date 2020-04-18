@@ -10,6 +10,7 @@ exports.seed = function (knex) {
                 { resource_name: "laundry detergent" },
                 { resource_name: "dryer sheets" },
                 { resource_name: "computer" },
+                { resource_name: "toys" },
             ]);
         });
 };
