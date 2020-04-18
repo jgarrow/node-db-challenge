@@ -26,15 +26,27 @@ router.get("/projects/:id/tasks", (req, res) => {
 
 // create tasks for specific project
 router.post("/projects/:id/tasks", (req, res) => {
+    const projectId = req.params.id;
     const task = req.body;
 
-    ProjectSchemes.addTasksToProject(task)
-        .then((response) => res.status(201).json({ response }))
-        .catch((err) =>
-            res.status(500).json({
-                message: `Error creating tasks for project ${projectId}`,
-            })
-        );
+    if (!task.task_name) {
+        res.status(400).json({
+            message: `task_name is required`,
+        });
+    } else {
+        if (!task.task_completed) {
+            task.task_completed = false;
+        }
+
+        task.project_id = projectId;
+        ProjectSchemes.addTasksToProject(task)
+            .then((response) => res.status(201).json({ response }))
+            .catch((err) =>
+                res.status(500).json({
+                    message: `Error creating tasks for project ${projectId}`,
+                })
+            );
+    }
 });
 
 module.exports = router;
