@@ -11,6 +11,16 @@ router.get("/tasks", (req, res) => {
         );
 });
 
+router.get("/tasks/:id", (req, res) => {
+    const taskId = req.params.id;
+
+    ProjectSchemes.getTaskById(taskId)
+        .then((task) => res.status(200).json(task))
+        .catch((err) =>
+            res.status(500).json({ message: `Error fetching task ${taskId}` })
+        );
+});
+
 // get tasks for specific project
 router.get("/projects/:id/tasks", (req, res) => {
     const projectId = req.params.id;
@@ -47,6 +57,29 @@ router.post("/projects/:id/tasks", (req, res) => {
                 })
             );
     }
+});
+
+router.delete("/tasks/:id", (req, res) => {
+    const taskId = req.params.id;
+
+    ProjectSchemes.removeTask(taskId)
+        .then((task) => res.status(200).json(task))
+        .catch((err) =>
+            res.status(500).json({
+                message: `Error deleting task ${taskId}`,
+            })
+        );
+});
+
+router.put("/tasks/:id", (req, res) => {
+    const taskId = req.params.id;
+    const updatedTask = req.body;
+
+    ProjectSchemes.updateTask(taskId, updatedTask)
+        .then((response) => res.status(200).json(response))
+        .catch((err) =>
+            res.status(500).json({ message: `Error updating task ${taskId}` })
+        );
 });
 
 module.exports = router;

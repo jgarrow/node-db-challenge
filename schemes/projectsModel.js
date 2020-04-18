@@ -26,6 +26,10 @@ function getTasks() {
         .innerJoin("projects", "projects.id", "tasks.project_id");
 }
 
+function getTaskById(taskId) {
+    return db("tasks").where({ id: taskId });
+}
+
 function getTasksByProject(projectId) {
     return db
         .select(
@@ -51,13 +55,24 @@ function addResource(resource) {
     return db("resources").insert(resource);
 }
 
+function removeTask(taskId) {
+    return db("tasks").where({ id: taskId }).del();
+}
+
+function updateTask(taskId, task) {
+    return db("tasks").where({ id: taskId }).update(task);
+}
+
 module.exports = {
     getProjects,
     getProject,
     getResources,
     getTasksByProject,
     getTasks,
+    getTaskById,
     addProject,
     addTasksToProject,
     addResource,
+    removeTask,
+    updateTask,
 };
